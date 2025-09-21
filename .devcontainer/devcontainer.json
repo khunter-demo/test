@@ -1,0 +1,51 @@
+// For format details, see https://aka.ms/devcontainer.json.
+// For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Base image: Python 3.12 on Debian Bullseye
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Forward container ports if needed.
+	// "forwardPorts": [],
+
+	// Install dependencies automatically
+	"postCreateCommand": "pip3 install --user -r requirements.txt || true",
+
+	// Configure tool-specific properties (VS Code settings/extensions).
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// Recommend only class-approved tools
+				"ms-python.python",
+				"ms-toolsai.jupyter"
+			],
+			"settings": {
+				// Disable GitHub Copilot completions
+				"github.copilot.enable": { "*": false },
+
+				// Disable Copilot Chat (functionality + pane)
+				"github.copilot.chat.enabled": false,
+				"github.copilot.chat.showChatPanel": false,
+
+				// Disable inline AI suggestions globally
+				"editor.inlineSuggest.enabled": false,
+
+				// Block marketplace nags to install AI tools
+				"extensions.ignoreRecommendations": true
+			}
+		}
+	},
+
+	// Ensure guard script is available/executable
+	"onCreateCommand": "mkdir -p .devcontainer/init && chmod +x .devcontainer/init/guard-copilot.sh || true",
+
+	// Run guard script every time container starts
+	"postAttachCommand": ".devcontainer/init/guard-copilot.sh"
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
